@@ -86,15 +86,15 @@ The following results are computed as RMSE for test set:
 - Multilayer Perceptron (MLP)
     - RMSE: 0.0803641468
     - Refer to `src/output/2019-06-17_18-16-38-675/training.log`
-    - For inference, run `python main_inference.py --config_path src/output/2019-06-17_18-16-38-675/config.yaml --model_dir src/output/2019-06-17_18-16-38-675/model/ --inference_data_path <INSERT_CSV_PATH>`
+    - For inference, run `python main_inference.py --config_path src/output/2019-06-17_18-16-38-675/config.yaml --model_dir src/output/2019-06-17_18-16-38-675/model/epoch_4/model.meta --inference_data_path <INSERT_CSV_PATH>`
 - Temporal Convolutional Network (TCN)
     - RMSE: 0.0395143114
     - Refer to `src/output/2019-06-17_14-20-52-632/training.log`
-    - For inference, run `python main_inference.py --config_path src/output/2019-06-17_14-20-52-632/config.yaml --model_dir src/output/2019-06-17_14-20-52-632/model/ --inference_data_path <INSERT_CSV_PATH>`
+    - For inference, run `python main_inference.py --config_path src/output/2019-06-17_14-20-52-632/config.yaml --model_dir src/output/2019-06-17_14-20-52-632/model/epoch_13/model.meta --inference_data_path <INSERT_CSV_PATH>`
 - Spatio Temporal Convolutional Network (SpatioTCN)
     - RMSE: 0.0837173931
     - Refer to `src/output/2019-06-17_21-48-17-390/training.log`
-    - For inference, run `python main_inference.py --config_path src/output/2019-06-17_21-48-17-390/config.yaml --model_dir src/output/2019-06-17_21-48-17-390/model/ --inference_data_path <INSERT_CSV_PATH>`
+    - For inference, run `python main_inference.py --config_path src/output/2019-06-17_21-48-17-390/config.yaml --model_dir src/output/2019-06-17_21-48-17-390/model/epoch_13/model.meta --inference_data_path <INSERT_CSV_PATH>`
 
 We did not manage to experiment with LSTM as it requires much computational resources and time to train.
 
