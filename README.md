@@ -16,7 +16,7 @@ python main_train.py --config_path <INSERT_PATH>
 ```
 For example, to train a LSTM model, modify the parameters in `configs/lstm.yaml` and run:
 ```
-python main_train.py --config_path configs/lstm.yaml
+python main_train.py --config_path src/configs/lstm.yaml
 ```
 
 #### 1.3 Inference
@@ -26,7 +26,7 @@ python main_inference.py --config_path <INSERT_YAML_PATH> --model_dir <INSERT_MO
 ```
 For example, to use a trained LightGBM to perform inference, run:
 ```
-- python main_inference.py --config_path output/2019-06-17_18-13-13-153/config.yaml --model_dir output/2019-06-17_18-13-13-153/model/ --inference_data_path data_loader/data/sample_test.csv
+python main_inference.py --config_path src/output/2019-06-17_18-13-13-153/config.yaml --model_dir src/output/2019-06-17_18-13-13-153/model/ --inference_data_path src/data_loader/data/sample_test.csv
 ```
 
 ## 2. Methodology
@@ -40,22 +40,24 @@ Some features extracted are:
     - Controlled by `use_day`
 - Cyclical timestamp
     - Use sine and cosine functions to transform timestamp into cyclical features
-    - Controleld by `use_cyclical_timestamp`
+    - Controlled by `use_cyclical_timestamp`
 - Part of day
-    - Divide the timestamp of entire day into multiple categories
-    - Controleld by `use_part_of_day`
+    - Divide the timestamp of entire day into multiple categories, such as morning, midday, afternoon, evening, night and midnight
+    - Controlled by `use_part_of_day`
 - Geohash
-    - Controleld by `use_geohash`
+    - Controlled by `use_geohash`
 
 #### 2.2 Model
-Instead of spending most of the time in using ensemble methods to squeeze out some improvement, we try to experiments with different models to analyze their performance, which include:
+Instead of spending most of the time in using ensemble methods to squeeze out some improvement, we try to experiment with different models to analyze their performance, and implement some of the latest research work in deep learning (such as SpatioTCN). The models implemented are as follows:
+
 - LightGBM
 - Multilayer Perceptron (MLP)
 - Long Short Term Memory (LSTM)
 - Temporal Convolutional Network (TCN)
+    - With dilations, causal network and skip connections
 - Spatio Temporal Convolutional Network (SpatioTCN)
-    - It is similar with TCN, but with an additional graph propagation layer added between each TCN block for message passing across different nodes. The graph
-    propagation layers used here is similar to graph convolutional network [1].
+    - It is similar with TCN, but with an additional graph propagation layer added between each TCN block for message passing across different nodes. The graph propagation layers used here is similar to graph convolutional network [1].
+    - We calculate the L2 distance among each geohash pairs and normalize them using `negative_softmax` to construct an adjacency matrix. This matrix is then fed into the graph propagation layer of SpatioTCN for message passing. Theoretically, this model should perform better than TCN as it distributes the information across geohash pairs when predicting for the geohash of interest.
 
 ## 3. Implementation
 #### 3.1 Modules and Repository Structure
@@ -78,17 +80,29 @@ This subsection specifically addresses one of the criterias of the challenge, wh
 ## 4. Results
 The following results are computed as RMSE for test set:
 - LightGBM
-    - 0.0395143114
-    - Refer to `output/2019-06-17_14-20-52-632/training.log`
+    - RMSE: 0.0295061609
+    - Refer to `src/output/2019-06-17_18-13-13-153/training.log`
+    - For inference, run `python main_inference.py --config_path src/output/2019-06-17_18-13-13-153/config.yaml --model_dir src/output/2019-06-17_18-13-13-153/model/ --inference_data_path <INSERT_CSV_PATH>`
 - Multilayer Perceptron (MLP)
-    - 0.0803641468
-    - Refer to `output/2019-06-17_18-16-38-675/training.log`
+    - RMSE: 0.0803641468
+    - Refer to `src/output/2019-06-17_18-16-38-675/training.log`
+    - For inference, run `python main_inference.py --config_path src/output/2019-06-17_18-16-38-675/config.yaml --model_dir src/output/2019-06-17_18-16-38-675/model/ --inference_data_path <INSERT_CSV_PATH>`
 - Temporal Convolutional Network (TCN)
-    - 0.0295061609
-    - Refer to `output/2019-06-17_18-13-13-1532/training.log`
+    - RMSE: 0.0395143114
+    - Refer to `src/output/2019-06-17_14-20-52-632/training.log`
+    - For inference, run `python main_inference.py --config_path src/output/2019-06-17_14-20-52-632/config.yaml --model_dir src/output/2019-06-17_14-20-52-632/model/ --inference_data_path <INSERT_CSV_PATH>`
 - Spatio Temporal Convolutional Network (SpatioTCN)
-    - 0.0837173931
-    - Refer to `output/2019-06-17_21-48-17-390/training.log`
+    - RMSE: 0.0837173931
+    - Refer to `src/output/2019-06-17_21-48-17-390/training.log`
+    - For inference, run `python main_inference.py --config_path src/output/2019-06-17_21-48-17-390/config.yaml --model_dir src/output/2019-06-17_21-48-17-390/model/ --inference_data_path <INSERT_CSV_PATH>`
+
+We did not manage to experiment with LSTM as it requires much computational resources and time to train.
+
+It is observed that LightGBM has the best performance among all models. Theoretically, given such large amount of data, TCN and SpatioTCN should perform better than LightGBM. However, due to lack of computational resources, it is unfortunate that we aren't able to fine-tune these models for better RMSE. We also observe that SpatioTCN requires much hyperparameter tuning due to its instability throughout the training process, which might be possibly due to the graph propagation layer added.
+
+## 5. Future Work
+- Experiment with LSTM
+- Fine tune TCN and SpatioTCN
 
 ## References
 [1] T. N. Kipf and M. Welling, “Semi-supervised classification with graph convolutional networks.”
