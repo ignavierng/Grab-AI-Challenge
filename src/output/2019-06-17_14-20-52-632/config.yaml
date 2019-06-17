@@ -1,0 +1,54 @@
+adj_mat:
+  epsilon: 0.5
+  path: data_loader/data/l2_dist_adj_mat.npy
+  transform: negative_exponential
+  use_znorm: true
+dataset:
+  batch_size: 1329
+  data_path: data_loader/data/
+  geohash_path: data_loader/data/geohash.csv
+  num_steps: 672
+  sliding_features: true
+  test_ratio: 0.2
+  use_cyclical_timestamp: true
+  use_day: false
+  use_geohash: false
+  use_part_of_day: false
+  val_ratio: 0.2
+general:
+  commit_num: 44e4d28f9015aacc44dd18280c5c66cc103e7f47
+  log_enabled: true
+  log_level: INFO
+  output_dir: ./output
+  seed: 8
+model:
+  name: tcn
+  params:
+    activation: linear
+    dilations:
+    - 1
+    - 2
+    - 4
+    - 8
+    - 16
+    input_size: 3
+    keep_prob: 0.6
+    kernel_size: 5
+    l2_reg: 1.0e-05
+    nb_filters: 16
+    nb_stacks: 3
+    num_steps: 672
+    padding: causal
+    return_sequences: false
+    use_bn: true
+    use_cuda: true
+    use_skip_connections: false
+    use_sliding_inputs: true
+trainer:
+  name: nn_trainer
+  params:
+    early_stopping_rounds: 10
+    epochs: 40
+    lr: 0.003
+    lr_decay: 0.99
+    save_best_model: true

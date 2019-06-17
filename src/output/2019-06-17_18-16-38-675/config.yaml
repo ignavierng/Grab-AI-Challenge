@@ -1,0 +1,39 @@
+dataset:
+  batch_size: true
+  data_path: data_loader/data/
+  geohash_path: data_loader/data/geohash.csv
+  num_steps: 672
+  sliding_features: false
+  test_ratio: 0.2
+  use_cyclical_timestamp: false
+  use_day: false
+  use_geohash: false
+  use_part_of_day: false
+  val_ratio: 0.2
+general:
+  commit_num: 7ed2e6b05ff49bea2ac99949b8840b3e3bcd2d40
+  log_enabled: true
+  log_level: INFO
+  output_dir: ./output
+  seed: 8
+model:
+  name: mlp
+  params:
+    activation: relu
+    hidden_size: 128
+    input_size: 672
+    keep_prob: 0.6
+    l2_reg: 1.0e-05
+    num_hidden_layers: 3
+    num_steps: null
+    use_bn: true
+    use_cuda: true
+    use_sliding_inputs: false
+trainer:
+  name: nn_trainer
+  params:
+    early_stopping_rounds: 10
+    epochs: 40
+    lr: 0.001
+    lr_decay: 0.99
+    save_best_model: true

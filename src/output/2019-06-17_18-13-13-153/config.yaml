@@ -1,0 +1,37 @@
+dataset:
+  batch_size: null
+  data_path: data_loader/data/
+  geohash_path: data_loader/data/geohash.csv
+  num_steps: 672
+  sliding_features: false
+  test_ratio: 0.2
+  use_cyclical_timestamp: false
+  use_day: false
+  use_geohash: false
+  use_part_of_day: false
+  val_ratio: 0.2
+general:
+  commit_num: 7ed2e6b05ff49bea2ac99949b8840b3e3bcd2d40
+  log_enabled: true
+  log_level: INFO
+  output_dir: ./output
+  seed: 8
+model:
+  name: multi_lightgbm
+  params:
+    bagging_fraction: 0.8
+    bagging_freq: 0
+    boosting_type: gbdt
+    feature_fraction: 0.8
+    learning_rate: 0.007
+    max_depth: 10
+    min_child_samples: 25
+    min_sum_hessian_in_leaf: 0.002
+    num_boost_round: 2500
+    num_leaves: 256
+    reg_alpha: 0.01
+    reg_lambda: 0.01
+trainer:
+  name: multi_lightgbm_trainer
+  params:
+    early_stopping_rounds: 200

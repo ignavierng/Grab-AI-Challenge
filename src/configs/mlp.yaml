@@ -1,0 +1,38 @@
+general:
+    log_enabled: True
+    log_level: INFO
+    output_dir: ./output
+    seed: 8
+dataset:
+    data_path: 'data_loader/data/'
+    geohash_path: 'data_loader/data/geohash.csv'
+    use_day: False
+    use_cyclical_timestamp: False
+    use_part_of_day: False
+    sliding_features: False
+    use_geohash: False
+    batch_size: 1329
+    num_steps: 672
+    val_ratio: 0.2
+    test_ratio: 0.2
+model:
+    name: mlp
+    params:
+        use_cuda: False    # Whether or not to use GPU
+        use_sliding_inputs: False
+        num_steps:    # Leave it as blank
+        input_size: 672
+        num_hidden_layers: 2
+        hidden_size: 16
+        use_bn: True
+        activation: relu
+        keep_prob: 0.7
+        l2_reg: 0.001
+trainer:
+    name: nn_trainer
+    params:
+        early_stopping_rounds: 2
+        epochs: 3
+        lr: 0.0001
+        lr_decay: 0.99
+        save_best_model: True

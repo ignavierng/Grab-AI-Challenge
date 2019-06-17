@@ -1,0 +1,6 @@
+model_checkpoint_path: "model"
+all_model_checkpoint_paths: "../epoch_1/model"
+all_model_checkpoint_paths: "../epoch_2/model"
+all_model_checkpoint_paths: "../epoch_3/model"
+all_model_checkpoint_paths: "../epoch_10/model"
+all_model_checkpoint_paths: "model"

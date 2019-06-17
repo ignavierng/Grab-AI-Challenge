@@ -1,0 +1,43 @@
+general:
+    log_enabled: True
+    log_level: INFO
+    output_dir: ./output
+    seed: 8
+dataset:
+    data_path: 'data_loader/data/'
+    geohash_path: 'data_loader/data/geohash.csv'
+    use_day: False
+    use_cyclical_timestamp: False
+    use_part_of_day: False
+    sliding_features: True
+    use_geohash: False
+    batch_size: 1329
+    num_steps: 5
+    val_ratio: 0.2
+    test_ratio: 0.2
+model:
+    name: tcn
+    params:
+        use_cuda: False    # Whether or not to use GPU
+        use_sliding_inputs: True
+        num_steps: 5
+        input_size: 1
+        nb_filters: 16
+        padding: same
+        nb_stacks: 2
+        dilations: [1, 2, 4]
+        kernel_size: 10
+        return_sequences: False
+        use_skip_connections: False
+        use_bn: True
+        activation: relu
+        keep_prob: 0.7
+        l2_reg: 0.001
+trainer:
+    name: nn_trainer
+    params:
+        early_stopping_rounds: 2
+        epochs: 3
+        lr: 0.0001
+        lr_decay: 0.99
+        save_best_model: True

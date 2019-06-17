@@ -1,0 +1,10 @@
+numpy
+pandas
+pyyaml
+pytz
+sklearn
+matplotlib
+lightgbm
+Geohash
+python-geohash
+tensorflow==1.13
