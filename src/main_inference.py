@@ -67,7 +67,7 @@ if __name__ == '__main__':
     model = ConfigFactory.create_instance(config['model']['name'],
                                           config['model']['params'],
                                           adj_np)
-    model.load(args.model_path)
+    model.load(args.model_dir)
     model.print_summary(print_func=print)
 
     # Inference

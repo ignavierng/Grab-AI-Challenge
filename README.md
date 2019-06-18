@@ -12,21 +12,25 @@ pip install -r requirements.txt
 #### 1.2 Training
 To train model, run:
 ```
+cd src
 python main_train.py --config_path <INSERT_PATH>
 ```
 For example, to train a LSTM model, modify the parameters in `configs/lstm.yaml` and run:
 ```
-python main_train.py --config_path src/configs/lstm.yaml
+cd src
+python main_train.py --config_path configs/lstm.yaml
 ```
 
 #### 1.3 Inference
 To perform inference, run:
 ```
+cd src
 python main_inference.py --config_path <INSERT_YAML_PATH> --model_dir <INSERT_MODEL_DIR> --inference_data_path <INSERT_CSV_PATH>
 ```
 For example, to use a trained LightGBM to perform inference, run:
 ```
-python main_inference.py --config_path src/output/2019-06-17_18-13-13-153/config.yaml --model_dir src/output/2019-06-17_18-13-13-153/model/ --inference_data_path src/data_loader/data/sample_test.csv
+cd src
+python main_inference.py --config_path output/2019-06-17_18-13-13-153/config.yaml --model_dir output/2019-06-17_18-13-13-153/model/ --inference_data_path data_loader/data/sample_test.csv
 ```
 
 ## 2. Methodology
@@ -82,19 +86,19 @@ The following results are computed as RMSE for test set:
 - LightGBM
     - RMSE: 0.0295061609
     - Refer to `src/output/2019-06-17_18-13-13-153/training.log`
-    - For inference, run `python main_inference.py --config_path src/output/2019-06-17_18-13-13-153/config.yaml --model_dir src/output/2019-06-17_18-13-13-153/model/ --inference_data_path <INSERT_CSV_PATH>`
+    - For inference, run `python main_inference.py --config_path output/2019-06-17_18-13-13-153/config.yaml --model_dir output/2019-06-17_18-13-13-153/model/ --inference_data_path <INSERT_CSV_PATH>`
 - Multilayer Perceptron (MLP)
     - RMSE: 0.0803641468
     - Refer to `src/output/2019-06-17_18-16-38-675/training.log`
-    - For inference, run `python main_inference.py --config_path src/output/2019-06-17_18-16-38-675/config.yaml --model_dir src/output/2019-06-17_18-16-38-675/model/epoch_4/model.meta --inference_data_path <INSERT_CSV_PATH>`
+    - For inference, run `python main_inference.py --config_path output/2019-06-17_18-16-38-675/config.yaml --model_dir output/2019-06-17_18-16-38-675/model/epoch_4/model.meta --inference_data_path <INSERT_CSV_PATH>`
 - Temporal Convolutional Network (TCN)
     - RMSE: 0.0395143114
     - Refer to `src/output/2019-06-17_14-20-52-632/training.log`
-    - For inference, run `python main_inference.py --config_path src/output/2019-06-17_14-20-52-632/config.yaml --model_dir src/output/2019-06-17_14-20-52-632/model/epoch_13/model.meta --inference_data_path <INSERT_CSV_PATH>`
+    - For inference, run `python main_inference.py --config_path output/2019-06-17_14-20-52-632/config.yaml --model_dir output/2019-06-17_14-20-52-632/model/epoch_13/model.meta --inference_data_path <INSERT_CSV_PATH>`
 - Spatio Temporal Convolutional Network (SpatioTCN)
     - RMSE: 0.0837173931
     - Refer to `src/output/2019-06-17_21-48-17-390/training.log`
-    - For inference, run `python main_inference.py --config_path src/output/2019-06-17_21-48-17-390/config.yaml --model_dir src/output/2019-06-17_21-48-17-390/model/epoch_13/model.meta --inference_data_path <INSERT_CSV_PATH>`
+    - For inference, run `python main_inference.py --config_path output/2019-06-17_21-48-17-390/config.yaml --model_dir output/2019-06-17_21-48-17-390/model/epoch_13/model.meta --inference_data_path <INSERT_CSV_PATH>`
 
 We did not manage to experiment with LSTM as it requires much computational resources and time to train.
 
