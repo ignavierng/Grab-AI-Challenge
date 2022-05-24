@@ -7,4 +7,4 @@ matplotlib
 lightgbm
 Geohash
 python-geohash
-tensorflow==1.13
+tensorflow==2.6.4
